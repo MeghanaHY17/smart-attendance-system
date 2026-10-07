@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Attendance System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+
+        <h1>Smart Attendance System</h1>
+
+        <p>
+            Face Recognition Based Attendance
+        </p>
+
+    </header>
+
+
+    <nav>
+
+        <button onclick="showSection('home')">
+            Home
+        </button>
+
+        <button onclick="showSection('register')">
+            Register Student
+        </button>
+
+        <button onclick="showSection('attendance')">
+            Start Attendance
+        </button>
+
+        <button onclick="showSection('records')">
+            View Attendance
+        </button>
+
+    </nav>
+
+
+    <!-- HOME -->
+
+    <section id="home" class="section active">
+
+        <div class="card">
+
+            <h2>Welcome</h2>
+
+            <p>
+                This system automatically recognizes
+                registered students and records their
+                attendance.
+            </p>
+
+            <div class="features">
+
+                <div>
+                    <h3>👤</h3>
+                    <p>Student Registration</p>
+                </div>
+
+                <div>
+                    <h3>📷</h3>
+                    <p>Face Recognition</p>
+                </div>
+
+                <div>
+                    <h3>✓</h3>
+                    <p>Automatic Attendance</p>
+                </div>
+
+                <div>
+                    <h3>📊</h3>
+                    <p>Attendance Reports</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- REGISTER -->
+
+    <section id="register" class="section">
+
+        <div class="card">
+
+            <h2>Register Student</h2>
+
+            <form id="registerForm">
+
+                <label>
+                    Student ID
+                </label>
+
+                <input
+                    type="text"
+                    id="studentId"
+                    placeholder="Enter student ID"
+                    required
+                >
+
+                <label>
+                    Student Name
+                </label>
+
+                <input
+                    type="text"
+                    id="studentName"
+                    placeholder="Enter student name"
+                    required
+                >
+
+                <video
+                    id="registerVideo"
+                    autoplay
+                    playsinline>
+                </video>
+
+                <canvas
+                    id="registerCanvas"
+                    style="display:none;">
+                </canvas>
+
+                <button
+                    type="button"
+                    onclick="startRegisterCamera()">
+                    Open Camera
+                </button>
+
+                <button
+                    type="button"
+                    onclick="captureStudent()">
+                    Capture & Register
+                </button>
+
+            </form>
+
+            <p id="registerMessage"></p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ATTENDANCE -->
+
+    <section id="attendance" class="section">
+
+        <div class="card">
+
+            <h2>Face Attendance</h2>
+
+            <p>
+                Look directly at the camera.
+            </p>
+
+            <video
+                id="attendanceVideo"
+                autoplay
+                playsinline>
+            </video>
+
+            <canvas
+                id="attendanceCanvas"
+                style="display:none;">
+            </canvas>
+
+            <br>
+
+            <button onclick="startAttendanceCamera()">
+                Start Camera
+            </button>
+
+            <button onclick="recognizeStudent()">
+                Recognize & Mark Attendance
+            </button>
+
+            <button onclick="stopCamera()">
+                Stop Camera
+            </button>
+
+            <p id="attendanceMessage"></p>
+
+        </div>
+
+    </section>
+
+
+    <!-- RECORDS -->
+
+    <section id="records" class="section">
+
+        <div class="card">
+
+            <h2>Attendance Records</h2>
+
+            <button onclick="loadAttendance()">
+                Refresh
+            </button>
+
+            <a
+                href="/export"
+                class="downloadButton">
+                Download CSV
+            </a>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+
+                        <th>Student ID</th>
+
+                        <th>Name</th>
+
+                        <th>Date</th>
+
+                        <th>Time</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                    </thead>
+
+                    <tbody id="attendanceTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+
+        <p>
+            Smart Attendance System |
+            BCA Project
+        </p>
+
+    </footer>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='script.js') }}">
+</script>
+
+</body>
+
+</html>
